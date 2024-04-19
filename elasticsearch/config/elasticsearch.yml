@@ -1,0 +1,33 @@
+cluster.name: "lgu-mvoip-cluster"
+
+#클라이너트 요청을 처리하기 위한 IP
+network.bind_host: 0.0.0.0
+
+#클러스터 내 노드들 간에 통신하기 위한 IP
+network.publish_host: 172.31.36.147
+
+# 현재 노드 타입 설정 EX: master, data
+node.roles: ["master"]
+
+#활성화된 다른 서버를 찾는 옵션으로 같은 클러스터로 묶인 노드의 IP혹은 도메인 주소명을 지정 ( 자신의 노드 IP를 제외 한 마스터 노드만 지정 )
+discovery.seed_providers: settings
+discovery.seed_hosts:
+  - 172.31.46.36:9300
+  - 172.31.40.175:9300
+  #- 172.31.36.147:9300
+
+#Master Node가 될 수 있는 후보들의 List
+cluster.initial_master_nodes:
+  - 172.31.46.36:9300
+  - 172.31.40.175:9300
+  - 172.31.36.147:9300
+
+xpack.security.enabled: false
+xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
+#xpack.license.self_generated.type: trial
+#xpack.security.enabled: true
+
+bootstrap.memory_lock: true #Elasticsearch가 사용중인 힙 메모리 영역을 다른 자바 프로그램이 간섭 못하도록 미리 점유하는 설정
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
